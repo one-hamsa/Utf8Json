@@ -8,6 +8,7 @@ using Utf8Json.Formatters;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Reflection.Emit;
+using UnityEngine;
 using Utf8Json.Resolvers.Internal;
 
 namespace Utf8Json.Resolvers
@@ -522,6 +523,13 @@ namespace Utf8Json.Resolvers.Internal
 
         public static object BuildFormatterToAssembly<T>(DynamicAssembly assembly, IJsonFormatterResolver selfResolver, Func<string, string> nameMutator, bool excludeNull)
         {
+            #if UNITY_EDITOR
+            if (!UnityPlayTimeHelper.isEditModeOrBuild)
+            {
+                throw new ApplicationException("would use dynamic formatter, this will not work in mono builds!");
+            }
+            #endif
+            
             var ti = typeof(T).GetTypeInfo();
 
             if (ti.IsNullable())
@@ -554,6 +562,13 @@ namespace Utf8Json.Resolvers.Internal
 
         public static object BuildFormatterToDynamicMethod<T>(IJsonFormatterResolver selfResolver, Func<string, string> nameMutator, bool excludeNull, bool allowPrivate)
         {
+            #if UNITY_EDITOR
+            if (!UnityPlayTimeHelper.isEditModeOrBuild)
+            {
+                throw new ApplicationException("would use dynamic formatter, this will not work in mono builds!");
+            }
+            #endif
+            
             var ti = typeof(T).GetTypeInfo();
 
             if (ti.IsNullable())

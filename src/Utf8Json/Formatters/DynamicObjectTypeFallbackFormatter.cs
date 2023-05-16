@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using UnityEngine;
 using Utf8Json.Internal;
 using Utf8Json.Internal.Emit;
 
@@ -22,6 +24,13 @@ namespace Utf8Json.Formatters
 
         public void Serialize(ref JsonWriter writer, object value, IJsonFormatterResolver formatterResolver)
         {
+            #if UNITY_EDITOR
+            if (!UnityPlayTimeHelper.isEditModeOrBuild)
+            {
+                throw new ApplicationException("would use dynamic fallback formatter, this will not work in mono builds!");
+            }
+            #endif
+            
             if (value == null) { writer.WriteNull(); return; }
 
             var type = value.GetType();
@@ -83,6 +92,12 @@ namespace Utf8Json.Formatters
 
         public object Deserialize(ref JsonReader reader, IJsonFormatterResolver formatterResolver)
         {
+            #if UNITY_EDITOR
+            if (!UnityPlayTimeHelper.isEditModeOrBuild)
+            {
+                throw new ApplicationException("would use dynamic fallback formatter, this will not work in mono builds!");
+            }
+            #endif
             return PrimitiveObjectFormatter.Default.Deserialize(ref reader, formatterResolver);
         }
     }
