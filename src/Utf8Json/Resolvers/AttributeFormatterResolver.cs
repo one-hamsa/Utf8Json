@@ -49,7 +49,7 @@ namespace Utf8Json.Resolvers
                 try
                 {
                     object fmt;
-                    if (attr.FormatterType.IsGenericType && !attr.FormatterType.GetTypeInfo().IsConstructedGenericType())
+                    if (attr.FormatterType.IsGenericType && !attr.FormatterType.GetTypeInfo().IsConstructedGenericType)
                     {
                         var t = attr.FormatterType.MakeGenericType(typeof(T)); // use T self
                         fmt = Activator.CreateInstance(t, attr.Arguments);
