@@ -2,17 +2,19 @@
 
 namespace Utf8Json
 {
-    internal static class UnityPlayTimeHelper
+    public static class UnityPlayTimeHelper
     {
-        public static bool isEditModeOrBuild = true;
+        public static bool suppressEditorDynamicSerializationErrors = false;
+        public static bool isEditModeOrBuild => suppressEditorDynamicSerializationErrors || _isEditModeOrBuild;
+        private static bool _isEditModeOrBuild;
         #if UNITY_EDITOR
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         static void Initialize()
         {
-            isEditModeOrBuild = false;
-            
-            Application.quitting += () => isEditModeOrBuild = true;
+            _isEditModeOrBuild = false;
+
+            Application.quitting += () => _isEditModeOrBuild = true;
         }
         #endif
     }
