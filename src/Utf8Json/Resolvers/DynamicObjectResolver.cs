@@ -526,7 +526,7 @@ namespace Utf8Json.Resolvers.Internal
             #if UNITY_EDITOR
             if (!UnityPlayTimeHelper.isEditModeOrBuild)
             {
-                throw new ApplicationException("would use dynamic formatter, this will not work in mono builds!");
+                throw new ApplicationException($"would use dynamic formatter for type {typeof(T).Name}, this will not work in mono builds!");
             }
             #endif
             
@@ -565,7 +565,7 @@ namespace Utf8Json.Resolvers.Internal
             #if UNITY_EDITOR
             if (!UnityPlayTimeHelper.isEditModeOrBuild)
             {
-                throw new ApplicationException("would use dynamic formatter, this will not work in mono builds!");
+                throw new ApplicationException($"would use dynamic formatter for type {typeof(T).Name}, this will not work in mono builds!");
             }
             #endif
             
