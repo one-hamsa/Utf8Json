@@ -16,7 +16,11 @@ namespace Utf8Json.Resolvers
 {
     public sealed class DynamicGenericResolver : IJsonFormatterResolver
     {
+        #if !ENABLE_IL2CPP
         public static readonly IJsonFormatterResolver Instance = new DynamicGenericResolver();
+        #else
+        public static readonly IJsonFormatterResolver Instance = BuiltinResolver.Instance;
+        #endif
 
         DynamicGenericResolver()
         {

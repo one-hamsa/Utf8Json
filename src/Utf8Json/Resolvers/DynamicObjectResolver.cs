@@ -18,6 +18,7 @@ namespace Utf8Json.Resolvers
     /// </summary>
     public static class DynamicObjectResolver
     {
+        #if !ENABLE_IL2CPP
         /// <summary>AllowPrivate:False, ExcludeNull:False, NameMutate:Original</summary>
         public static readonly IJsonFormatterResolver Default = DynamicObjectResolverAllowPrivateFalseExcludeNullFalseNameMutateOriginal.Instance;
         /// <summary>AllowPrivate:False, ExcludeNull:False, NameMutate:CamelCase</summary>
@@ -43,6 +44,33 @@ namespace Utf8Json.Resolvers
         public static readonly IJsonFormatterResolver AllowPrivateExcludeNullCamelCase = DynamicObjectResolverAllowPrivateTrueExcludeNullTrueNameMutateCamelCase.Instance;
         /// <summary>AllowPrivate:True,  ExcludeNull:True,  NameMutate:SnakeCase</summary>
         public static readonly IJsonFormatterResolver AllowPrivateExcludeNullSnakeCase = DynamicObjectResolverAllowPrivateTrueExcludeNullTrueNameMutateSnakeCase.Instance;
+        #else
+        /// <summary>AllowPrivate:False, ExcludeNull:False, NameMutate:Original</summary>
+        public static readonly IJsonFormatterResolver Default = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:False, ExcludeNull:False, NameMutate:CamelCase</summary>
+        public static readonly IJsonFormatterResolver CamelCase = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:False, ExcludeNull:False, NameMutate:SnakeCase</summary>
+        public static readonly IJsonFormatterResolver SnakeCase = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:False, ExcludeNull:True,  NameMutate:Original</summary>
+        public static readonly IJsonFormatterResolver ExcludeNull = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:False, ExcludeNull:True,  NameMutate:CamelCase</summary>
+        public static readonly IJsonFormatterResolver ExcludeNullCamelCase = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:False, ExcludeNull:True,  NameMutate:SnakeCase</summary>
+        public static readonly IJsonFormatterResolver ExcludeNullSnakeCase = BuiltinResolver.Instance;
+
+        /// <summary>AllowPrivate:True,  ExcludeNull:False, NameMutate:Original</summary>
+        public static readonly IJsonFormatterResolver AllowPrivate = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:True,  ExcludeNull:False, NameMutate:CamelCase</summary>
+        public static readonly IJsonFormatterResolver AllowPrivateCamelCase = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:True,  ExcludeNull:False, NameMutate:SnakeCase</summary>
+        public static readonly IJsonFormatterResolver AllowPrivateSnakeCase = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:True,  ExcludeNull:True,  NameMutate:Original</summary>
+        public static readonly IJsonFormatterResolver AllowPrivateExcludeNull = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:True,  ExcludeNull:True,  NameMutate:CamelCase</summary>
+        public static readonly IJsonFormatterResolver AllowPrivateExcludeNullCamelCase = BuiltinResolver.Instance;
+        /// <summary>AllowPrivate:True,  ExcludeNull:True,  NameMutate:SnakeCase</summary>
+        public static readonly IJsonFormatterResolver AllowPrivateExcludeNullSnakeCase = BuiltinResolver.Instance;
+        #endif
     }
 }
 
