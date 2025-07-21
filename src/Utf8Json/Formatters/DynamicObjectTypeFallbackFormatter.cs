@@ -27,7 +27,7 @@ namespace Utf8Json.Formatters
             #if UNITY_EDITOR
             if (!UnityPlayTimeHelper.isEditModeOrBuild)
             {
-                throw new ApplicationException("would use dynamic fallback formatter, this will not work in mono builds!");
+                throw new ApplicationException($"would use dynamic formatter for type {value.GetType().Name}, this will not work in mono builds!");
             }
             #endif
             
